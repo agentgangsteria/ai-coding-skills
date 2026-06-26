@@ -1,0 +1,4 @@
+interface:
+  display_name: "Unit Test"
+  short_description: "Write repo-local Vitest unit tests"
+  default_prompt: "Use $unit-test when adding or updating Vitest unit tests."
