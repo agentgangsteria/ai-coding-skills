@@ -1,0 +1,4 @@
+interface:
+  display_name: "React Component Conventions"
+  short_description: "Apply reusable React component coding conventions"
+  default_prompt: "Use $react-component-conventions when creating or extracting React components."
