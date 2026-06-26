@@ -1,0 +1,4 @@
+interface:
+    display_name: 'Module Layout'
+    short_description: 'TypeScript module ordering checklist.'
+    default_prompt: 'Use $module-layout to organize touched TypeScript modules before finalizing changes.'
