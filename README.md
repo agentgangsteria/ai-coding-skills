@@ -30,7 +30,7 @@ npx skills add agentgangsteria/ai-coding-skills -a claude-code -a codex
 npx skills add agentgangsteria/ai-coding-skills --skill unit-test
 ```
 
-Skills land in the agent's own directory (`.claude/skills/`, Codex's skills dir, etc.).
+Skills land in the selected agents' directories, such as `.claude/skills/` for Claude Code and `.agents/skills/` for Codex.
 List what's installed with `npx skills list`.
 
 ## Update when a skill improves
