@@ -1,6 +1,6 @@
 ---
 name: module-layout
-description: Portable TypeScript module layout checklist. Use when Codex creates, edits, reviews, or refactors TypeScript modules so touched files are organized with type/interface declarations first, constants next, private helpers close to their consumers, and exported functions/classes/values last.
+description: Portable TypeScript module layout checklist. Use when creating, editing, reviewing, or refactoring TypeScript modules so touched files are organized with type/interface declarations first, constants next, private helpers close to their consumers, and exported functions/classes/values last.
 ---
 
 # Module Layout

@@ -1,6 +1,6 @@
 ---
 name: react-component-conventions
-description: React and TypeScript component conventions for creating, extracting, moving, or refactoring .tsx React components. Use when Codex works on React components, especially when extracting reusable UI into its own module, adding typed props, updating component imports/exports, or matching project-local component style.
+description: React and TypeScript component conventions for creating, extracting, moving, or refactoring .tsx React components. Use when working on React components, especially when extracting reusable UI into its own module, adding typed props, updating component imports/exports, or matching project-local component style.
 ---
 
 # React Component Conventions

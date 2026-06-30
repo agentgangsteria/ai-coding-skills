@@ -1,6 +1,6 @@
 ---
 name: unit-test
-description: Repo-local guidance for writing or updating Vitest unit tests. Use when Codex adds coverage for pure logic or service modules, updates existing `src/**/__tests__/*.test.ts` files, or needs to follow the repo's unit-test naming, AAA layout, explicit Vitest import, and verification conventions.
+description: Repo-local guidance for writing or updating Vitest unit tests. Use when adding coverage for pure logic or service modules, updating existing `src/**/__tests__/*.test.ts` files, or following the repo's unit-test naming, AAA layout, explicit Vitest import, and verification conventions.
 ---
 
 # Unit Test
