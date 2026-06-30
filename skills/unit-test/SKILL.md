@@ -1,11 +1,9 @@
 ---
 name: unit-test
-description: Repo-local guidance for writing or updating Vitest unit tests. Use when adding coverage for pure logic or service modules, updating existing `src/**/__tests__/*.test.ts` files, or following the repo's unit-test naming, AAA layout, explicit Vitest import, and verification conventions.
+description: Vitest unit-test conventions for pure-logic and service modules. Use when adding coverage for a module, updating an existing `*.test.ts` file, or setting up the project's Vitest script and dependencies.
 ---
 
 # Unit Test
-
-Use this skill for Vitest unit tests.
 
 ## Start Here
 
