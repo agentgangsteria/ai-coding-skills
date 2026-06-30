@@ -12,6 +12,7 @@ that read the standard `skills/` layout).
 | [`module-layout`](skills/module-layout/SKILL.md) | Portable top-to-bottom ordering for TypeScript modules (types → constants → private helpers → exports). |
 | [`react-component-conventions`](skills/react-component-conventions/SKILL.md) | Conventions for creating, extracting, and structuring `.tsx` React components and their props/files. |
 | [`unit-test`](skills/unit-test/SKILL.md) | Writing and updating Vitest unit tests with AAA layout, naming, and verification conventions. |
+| [`skill-craft`](skills/skill-craft/SKILL.md) | Conventions for writing and reviewing skills (SKILL.md frontmatter, triggers, body, verification). |
 
 ## Install into a project
 

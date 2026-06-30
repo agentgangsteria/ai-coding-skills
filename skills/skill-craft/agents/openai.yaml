@@ -1,0 +1,4 @@
+interface:
+    display_name: "Skill Craft"
+    short_description: "Conventions for writing SKILL.md files."
+    default_prompt: "Use $skill-craft when creating or editing a skill."
