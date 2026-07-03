@@ -29,6 +29,9 @@ npx skills add agentgangsteria/ai-coding-skills -a claude-code -a codex
 
 # Install a single skill
 npx skills add agentgangsteria/ai-coding-skills --skill unit-test
+
+# Install a single skill non-interactively (e.g. from a script or agent)
+npx skills add agentgangsteria/ai-coding-skills --skill skills-sync --yes
 ```
 
 Skills land in the selected agents' directories, such as `.claude/skills/` for Claude Code and `.agents/skills/` for Codex.
@@ -60,6 +63,16 @@ skill (installed like any other):
 3. Review and merge the PR here.
 4. In each consuming project, run `npx skills update` (or `npx skills add` for new skills)
    to pull the merged version and clear the local drift.
+
+`skills-sync` is user-invoked only (it opens PRs against this repo, so it never fires
+implicitly). To trigger it with a literal `/skills-sync` instead of asking in plain
+language, copy the bundled Claude Code command into the project once — the `skills` CLI
+doesn't install commands, only `SKILL.md`:
+
+```bash
+mkdir -p .claude/commands
+cp <path-to-this-repo>/skills/skills-sync/commands/skills-sync.md .claude/commands/skills-sync.md
+```
 
 ## Contributing a skill
 
