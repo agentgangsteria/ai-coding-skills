@@ -13,6 +13,7 @@ that read the standard `skills/` layout).
 | [`react-component-conventions`](skills/react-component-conventions/SKILL.md) | Conventions for creating, extracting, and structuring `.tsx` React components and their props/files. |
 | [`unit-test`](skills/unit-test/SKILL.md) | Writing and updating Vitest unit tests with AAA layout, naming, and verification conventions. |
 | [`skill-craft`](skills/skill-craft/SKILL.md) | Conventions for writing and reviewing skills (SKILL.md frontmatter, triggers, body, verification). |
+| [`skills-sync`](skills/skills-sync/SKILL.md) | Publishing locally modified or new skills from a consuming project back to this repo as a PR. |
 
 ## Install into a project
 
@@ -45,6 +46,20 @@ npx skills update
 # Update a single skill
 npx skills update unit-test
 ```
+
+## Improving skills from a project
+
+Skills naturally get improved *inside* consuming projects while working. The `skills` CLI
+is consume-only, so changes flow back here via the [`skills-sync`](skills/skills-sync/SKILL.md)
+skill (installed like any other):
+
+1. Edit a skill in the project's `.agents/skills/<name>/` (or create a new one) as part of
+   normal work.
+2. Invoke `skills-sync` — it diffs local skills against this repo, and opens a PR with the
+   selected changes.
+3. Review and merge the PR here.
+4. In each consuming project, run `npx skills update` (or `npx skills add` for new skills)
+   to pull the merged version and clear the local drift.
 
 ## Contributing a skill
 
