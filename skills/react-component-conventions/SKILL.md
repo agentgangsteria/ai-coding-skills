@@ -39,6 +39,20 @@ export const ComponentName: FC = () => (
 
 Prefer an `interface ComponentNameProps` for props. Keep the props interface local unless another module needs to import it. If a component accepts `children`, import and use `ReactNode` as a type.
 
+Define methods inside a component body — event handlers, async flows, and local helpers — as arrow-function `const`s, not `function` declarations:
+
+```tsx
+const handleSelect = (id: string) => {
+    setSelectedId(id);
+};
+
+const runStream = async (agent: Agent) => {
+    // ...
+};
+```
+
+Keep logic that does not read or set React state out of the component entirely — move it to the component's `ComponentNameService.ts` (see Extraction Rules) so it stays a pure, unit-testable function.
+
 ## Extraction Rules
 
 Name the file after the component, for example `ChevronIcon.tsx` for `ChevronIcon`.
