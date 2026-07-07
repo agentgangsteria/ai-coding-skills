@@ -1,6 +1,6 @@
 ---
 name: module-layout
-description: Portable TypeScript module layout checklist. Use when creating, editing, reviewing, or refactoring a TypeScript module and deciding the order of its declarations.
+description: Portable TypeScript module layout checklist. Use when writing or restructuring a TypeScript module and deciding the order of its declarations.
 ---
 
 # Module Layout
@@ -12,14 +12,13 @@ description: Portable TypeScript module layout checklist. Use when creating, edi
 - Order each module top-to-bottom:
     - Type aliases and interfaces first.
     - `UPPER_SNAKE_CASE` module-level constants next.
-    - Private non-exported functions next.
-    - Exported functions, classes, values, and constants last.
+    - Functions, classes, and other values last — exported code with its
+      private helpers interleaved.
 - Prefer local type/interface declarations before exported ones. Keep exported
   declarations close to the exported code that uses them when it improves quick
   visual understanding.
-- Keep private helpers as close as practical to the exported code they support,
-  while preserving the top-to-bottom order: place a helper directly before its
-  only consumer, or before the first consumer when it is shared.
+- Within the function section, place a private helper directly before its only
+  consumer, or before the first consumer when it is shared.
 
 ## Example
 
