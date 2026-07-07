@@ -9,8 +9,8 @@ that read the standard `skills/` layout).
 
 | Skill | Purpose |
 | --- | --- |
-| [`code-style`](skills/code-style/SKILL.md) | Repo-wide TypeScript code-style rules, such as always bracing `if`/`else` bodies. |
-| [`module-layout`](skills/module-layout/SKILL.md) | Portable top-to-bottom ordering for TypeScript modules (types → constants → private helpers → exports). |
+| [`code-style`](skills/code-style/SKILL.md) | TypeScript code-style rules, such as always bracing `if`/`else` bodies. |
+| [`module-layout`](skills/module-layout/SKILL.md) | Portable top-to-bottom ordering for TypeScript modules (types → constants → functions with private helpers interleaved). |
 | [`react-component-conventions`](skills/react-component-conventions/SKILL.md) | Conventions for creating, extracting, and structuring `.tsx` React components and their props/files. |
 | [`unit-test`](skills/unit-test/SKILL.md) | Writing and updating Vitest unit tests with AAA layout, naming, and verification conventions. |
 | [`skill-craft`](skills/skill-craft/SKILL.md) | Conventions for writing and reviewing skills (SKILL.md frontmatter, triggers, body, verification). |

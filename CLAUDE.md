@@ -10,6 +10,7 @@ project — and every agent (Claude Code, Codex, Cursor, …) — follows.
 ```
 skills/<skill-name>/
   SKILL.md              # required — the skill
+  *.md                  # optional — reference files SKILL.md links to
   agents/openai.yaml    # optional — Codex display metadata
 README.md               # catalog index
 ```
@@ -17,8 +18,7 @@ README.md               # catalog index
 ## Working in this repo
 
 - **Authoring or editing a skill?** Follow the `skill-craft` skill — it covers
-  frontmatter, trigger wording, body style, optional agent metadata, and verification.
-- A skill's folder name MUST equal the `name` in its `SKILL.md` frontmatter.
-- Keep skills agent-neutral — never name a specific agent in a description or instruction.
+  frontmatter, naming, agent-neutrality, trigger wording, body style, optional agent
+  metadata, and verification.
 - When you add, rename, or remove a skill, update the **Available skills** table in
   `README.md` to match.
