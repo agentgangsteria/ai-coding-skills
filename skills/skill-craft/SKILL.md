@@ -1,13 +1,12 @@
 ---
 name: skill-craft
-description: Conventions for writing and reviewing agent skills. Use when creating a new SKILL.md, editing or reviewing an existing skill, writing a skill's description or triggers, structuring its steps and reference, or choosing model- vs user-invocation.
+description: Skill-authoring conventions. Use when creating, editing, or reviewing a SKILL.md or its agent metadata.
 ---
 
 # Skill Craft
 
 A skill turns vague intent into a repeatable process. Optimize for **predictability** — the
-agent taking the same process every run — not for clever prose. Use this whenever you create,
-edit, or review a `SKILL.md`.
+agent taking the same process every run — not for clever prose.
 
 ## Frontmatter
 
@@ -16,8 +15,8 @@ invocation type is controlled by `disable-model-invocation`:
 
 ```markdown
 ---
-name: skill-craft
-description: Conventions for writing and reviewing agent skills. Use when creating a new SKILL.md, editing or reviewing an existing skill, writing a skill's description or triggers, structuring its steps and reference, or choosing model- vs user-invocation.
+name: <folder-name>
+description: <one-line identity>. Use when <trigger>, <trigger>.
 # disable-model-invocation: true   # uncomment for user-invoked (omit = model-invoked)
 ---
 ```
@@ -61,51 +60,37 @@ A skill is **steps** (ordered actions) and **reference** (rules and facts), in a
 - **End with verification.** Close with how to check the result using the narrowest relevant
   command in the host project (lint / type-check / test), and to report blockers separately.
 
-## Prune
-
-- **One source of truth** per fact, so a change is a one-place edit.
-- **Cut no-ops:** test each sentence — does it change behaviour versus what the agent already
-  does by default? If not, delete the whole sentence. "Be thorough" is a no-op; a sharper
-  word or a concrete criterion is not.
-
 ## Optional Codex metadata — agents/openai.yaml
 
 Add `agents/openai.yaml` beside `SKILL.md` only to give Codex a nicer label/prompt; other
-agents ignore it.
-
-```yaml
-interface:
-    display_name: "Module Layout"
-    short_description: "TypeScript module ordering checklist."
-    default_prompt: "Use $module-layout to organize touched modules before finalizing."
-# allow_implicit_invocation: false   # Codex inverse of disable-model-invocation
-```
-
-`default_prompt` references the skill by `$name` (its folder / frontmatter name).
+agents ignore it. See [`codex-metadata.md`](codex-metadata.md) for the file format.
 
 **Keep invocation in sync across both files.** `allow_implicit_invocation` (Codex, default
 `true`) is the inverse of `disable-model-invocation` (SKILL.md, default off). A model-invoked
 skill omits both; a user-invoked skill must set `disable-model-invocation: true` **and**
 `allow_implicit_invocation: false`, or the agents disagree on whether the skill auto-fires.
 
-## Place and verify
+## Verify
 
-- The skill's folder name MUST equal its frontmatter `name`.
-- Confirm discovery from a throwaway directory:
+Confirm discovery from a throwaway directory:
 
-  ```bash
-  npx skills add <path-to-skills-repo> -a claude-code --copy --yes
-  ```
+```bash
+npx skills add <path-to-skills-repo> -a claude-code --copy --yes
+```
 
-  Check the skill is found and its `SKILL.md` plus any `agents/openai.yaml` install
-  correctly. (`npx skills update` skips local-path sources, so test discovery with `add`.)
+Check the skill is found and its `SKILL.md` plus all sibling files (`agents/openai.yaml`,
+disclosed reference `.md`s) install correctly. (`npx skills update` skips local-path
+sources, so test discovery with `add`.)
 
-## Failure modes
+## Prune — hunt these failure modes
 
-Diagnose a misbehaving skill against these:
+Hunt these on every edit, and diagnose a misbehaving skill against them:
 
 - **Stops early** — a step ended before its work was done: sharpen the completion criterion.
-- **Duplication** — the same meaning in two places: collapse to one source of truth.
+- **Duplication** — the same meaning in two places: collapse to a single source of truth,
+  so a change is a one-place edit.
 - **Sediment** — stale lines kept because adding feels safe: prune on every edit.
 - **Sprawl** — too long even when every line is live: disclose reference to a sibling file.
-- **No-op** — a line the agent already obeys by default: delete it or use a sharper word.
+- **No-op** — a line the agent already obeys by default: test each sentence — does it change
+  behaviour versus the default? If not, delete the whole sentence. "Be thorough" is a no-op;
+  a sharper word or a concrete criterion is not.

@@ -1,6 +1,6 @@
 ---
 name: skills-sync
-description: Publish locally modified or newly created skills from a consuming project back to the shared skills repo as a pull request. Use when the user explicitly asks to sync, publish, or upstream skill changes.
+description: Publish locally modified or newly created skills from a consuming project back to the shared skills repo as a pull request.
 disable-model-invocation: true
 ---
 
@@ -16,8 +16,8 @@ projects diverge the same skill.
 
 A PR needs a git checkout to diff, branch, and commit from; the project holds no git link
 to the skills repo. Find the source repo in the project's `skills-lock.json`
-(`source`, e.g. `agentgangsteria/ai-coding-skills`). Prefer an existing local clone if the
-user has one — pull its default branch and require a clean tree. Otherwise clone shallowly:
+(`source`, e.g. `agentgangsteria/ai-coding-skills`) and clone it shallowly into a fresh
+directory under the system temp dir:
 
 ```bash
 gh repo clone <source> <tmp-dir> -- --depth 1
@@ -53,6 +53,8 @@ locally (upstream moved on since install), stop for that skill and present the c
 hunks — merge deliberately, never overwrite. Capture the **why** behind each change if the
 session doesn't already make it obvious; it belongs in the PR body.
 
+Done when: the user has picked the skills to push and each pick has a captured why.
+
 ## 4. Copy and review
 
 Copy each selected skill folder wholesale — `SKILL.md`, `agents/openai.yaml`, and any
@@ -60,6 +62,8 @@ sibling files — over `skills/<name>/` in the checkout. New skills must satisfy
 contribution rules (folder name equals frontmatter `name`, agent-neutral description; see
 the `skill-craft` skill). Show the resulting `git diff` (plus `git status` for new files)
 to the user before committing.
+
+Done when: the user has approved the diff.
 
 ## 5. Branch, commit, PR
 
@@ -74,7 +78,10 @@ gh pr create --title "<summary>" --body "<see below>"
 PR body: the source project, what changed per skill, and why. When adding a new skill,
 also update the **Available skills** table in `README.md` in the same PR.
 
-Done when: the PR URL is reported to the user.
+After reporting the PR URL, remove the temp clone (`rm -rf <tmp-dir>`) — if review
+feedback needs follow-up commits, re-clone and check out the PR branch.
+
+Done when: the PR URL is reported to the user and the temp clone is removed.
 
 ## 6. Close the loop
 
@@ -86,3 +93,5 @@ npx skills add <source>   # pick up newly added skills
 ```
 
 This re-syncs local copies and `skills-lock.json`, ending the drift.
+
+Done when: the user has the after-merge commands for every consuming project.

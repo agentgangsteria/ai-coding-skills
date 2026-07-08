@@ -1,6 +1,6 @@
 ---
 name: code-style
-description: Repo-wide TypeScript code-style rules. Use whenever writing or modifying any TypeScript or TSX code in this repo.
+description: TypeScript code-style rules. Use whenever writing or modifying any TypeScript or TSX code.
 ---
 
 # Code Style

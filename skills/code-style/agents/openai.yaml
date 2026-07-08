@@ -1,4 +1,4 @@
 interface:
   display_name: "Code Style"
-  short_description: "Repo-wide TypeScript code-style rules"
+  short_description: "TypeScript code-style rules"
   default_prompt: "Use $code-style when writing or modifying TypeScript/TSX code."

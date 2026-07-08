@@ -9,7 +9,7 @@ description: React and TypeScript conventions for .tsx components. Use when crea
 
 Before editing, inspect nearby components and preserve the current project's import paths, file placement, barrel exports, and formatter style.
 
-When creating or extracting a React component, put each meaningful component in its own `.tsx` module when it has independent reuse value, local ownership, or makes the caller clearer. Apply this structure while building new features, not only during later refactors. Keep edits scoped to the component work and avoid unrelated formatting or import churn.
+Keep edits scoped to the component work and avoid unrelated formatting or import churn.
 
 ## Component Shape
 
@@ -55,6 +55,8 @@ Keep logic that does not read or set React state out of the component entirely â
 
 ## Extraction Rules
 
+Put each meaningful component in its own `.tsx` module when it has independent reuse value, local ownership, or makes the caller clearer. Apply this structure while building new features, not only during later refactors.
+
 Name the file after the component, for example `ChevronIcon.tsx` for `ChevronIcon`.
 
 Move only component-specific markup, props, constants, and helper types into the new module. Leave caller state, effects, data arrays, and behavior in the caller unless they truly belong to the extracted component.
@@ -73,13 +75,7 @@ Use `ComponentNameService.ts` for component-local data, helpers, or service-like
 
 ## Content-Driven UI
 
-For content-heavy pages, keep the page component as the composition layer. Extract repeated presentational units into colocated `.tsx` components when doing so clarifies the page without moving data orchestration too early.
-
-When navigation, tabs, filters, or anchor links mirror structured content, prefer deriving those UI items from the content model instead of duplicating IDs or labels in components. Add explicit display fields such as `navLabel` when the UI needs shorter copy than the full content title.
-
-For client components, pass small typed props derived by the server or composition layer rather than importing broad content objects into the client boundary.
-
-When a refactor changes the content contract, update the relevant validator or narrow verification check in the same change.
+Building a content-heavy page, or wiring navigation/tabs/filters that mirror structured content? Follow [`content-driven-ui.md`](content-driven-ui.md).
 
 ## Verification
 
