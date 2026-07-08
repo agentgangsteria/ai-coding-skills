@@ -15,6 +15,7 @@ that read the standard `skills/` layout).
 | [`unit-test`](skills/unit-test/SKILL.md) | Writing and updating Vitest unit tests with AAA layout, naming, and verification conventions. |
 | [`skill-craft`](skills/skill-craft/SKILL.md) | Conventions for writing and reviewing skills (SKILL.md frontmatter, triggers, body, verification). |
 | [`skills-sync`](skills/skills-sync/SKILL.md) | Publishing locally modified or new skills from a consuming project back to this repo as a PR. |
+| [`audit-codebase`](skills/audit-codebase/SKILL.md) | Auditing a codebase against the installed coding skills read-only, then fixing only user-selected findings. |
 
 ## Install into a project
 
@@ -65,14 +66,17 @@ skill (installed like any other):
 4. In each consuming project, run `npx skills update` (or `npx skills add` for new skills)
    to pull the merged version and clear the local drift.
 
-`skills-sync` is user-invoked only (it opens PRs against this repo, so it never fires
-implicitly). To trigger it with a literal `/skills-sync` instead of asking in plain
-language, copy the bundled Claude Code command into the project once — the `skills` CLI
-doesn't install commands, only `SKILL.md`:
+## User-invoked skills and their commands
+
+`skills-sync` and `audit-codebase` are user-invoked only (`disable-model-invocation: true`);
+they act on the user's explicit request and never fire implicitly. To trigger one with a
+literal slash command (`/skills-sync`, `/audit-codebase`) instead of asking in plain
+language, copy its bundled Claude Code command into the project once — the `skills` CLI
+doesn't install commands, only the skill folder:
 
 ```bash
 mkdir -p .claude/commands
-cp <path-to-this-repo>/skills/skills-sync/commands/skills-sync.md .claude/commands/skills-sync.md
+cp <path-to-this-repo>/skills/<name>/commands/<name>.md .claude/commands/<name>.md
 ```
 
 ## Contributing a skill
