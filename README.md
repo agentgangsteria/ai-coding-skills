@@ -14,7 +14,7 @@ that read the standard `skills/` layout).
 | [`react-component-conventions`](skills/react-component-conventions/SKILL.md) | Conventions for creating, extracting, and structuring `.tsx` React components and their props/files. |
 | [`unit-test`](skills/unit-test/SKILL.md) | Writing and updating Vitest unit tests with AAA layout, naming, and verification conventions. |
 | [`skill-craft`](skills/skill-craft/SKILL.md) | Conventions for writing and reviewing skills (SKILL.md frontmatter, triggers, body, verification). |
-| [`skills-sync`](skills/skills-sync/SKILL.md) | Publishing locally modified or new skills from a consuming project back to this repo as a PR. |
+| [`sync-skills`](skills/sync-skills/SKILL.md) | Publishing locally modified or new skills from a consuming project back to this repo as a PR. |
 | [`audit-codebase`](skills/audit-codebase/SKILL.md) | Auditing a codebase against the installed coding skills read-only, then fixing only user-selected findings. |
 
 ## Install into a project
@@ -33,7 +33,7 @@ npx skills add agentgangsteria/ai-coding-skills -a claude-code -a codex
 npx skills add agentgangsteria/ai-coding-skills --skill unit-test
 
 # Install a single skill non-interactively (e.g. from a script or agent)
-npx skills add agentgangsteria/ai-coding-skills --skill skills-sync --yes
+npx skills add agentgangsteria/ai-coding-skills --skill sync-skills --yes
 ```
 
 Skills land in the selected agents' directories, such as `.claude/skills/` for Claude Code and `.agents/skills/` for Codex.
@@ -55,12 +55,12 @@ npx skills update unit-test
 ## Improving skills from a project
 
 Skills naturally get improved *inside* consuming projects while working. The `skills` CLI
-is consume-only, so changes flow back here via the [`skills-sync`](skills/skills-sync/SKILL.md)
+is consume-only, so changes flow back here via the [`sync-skills`](skills/sync-skills/SKILL.md)
 skill (installed like any other):
 
 1. Edit a skill in the project's `.agents/skills/<name>/` (or create a new one) as part of
    normal work.
-2. Invoke `skills-sync` — it diffs local skills against this repo, and opens a PR with the
+2. Invoke `sync-skills` — it diffs local skills against this repo, and opens a PR with the
    selected changes.
 3. Review and merge the PR here.
 4. In each consuming project, run `npx skills update` (or `npx skills add` for new skills)
@@ -68,9 +68,9 @@ skill (installed like any other):
 
 ## User-invoked skills and their commands
 
-`skills-sync` and `audit-codebase` are user-invoked only (`disable-model-invocation: true`);
+`sync-skills` and `audit-codebase` are user-invoked only (`disable-model-invocation: true`);
 they act on the user's explicit request and never fire implicitly. To trigger one with a
-literal slash command (`/skills-sync`, `/audit-codebase`) instead of asking in plain
+literal slash command (`/sync-skills`, `/audit-codebase`) instead of asking in plain
 language, copy its bundled Claude Code command into the project once — the `skills` CLI
 doesn't install commands, only the skill folder:
 
@@ -78,6 +78,12 @@ doesn't install commands, only the skill folder:
 mkdir -p .claude/commands
 cp <path-to-this-repo>/skills/<name>/commands/<name>.md .claude/commands/<name>.md
 ```
+
+> **Migration note:** `sync-skills` was previously named `skills-sync`. `npx skills update`
+> does not follow renames, so in projects that installed the old name, delete the stale
+> copies (`.claude/skills/skills-sync/`, `.agents/skills/skills-sync/`, and any copied
+> `.claude/commands/skills-sync.md`), then run
+> `npx skills add agentgangsteria/ai-coding-skills --skill sync-skills`.
 
 ## Contributing a skill
 

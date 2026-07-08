@@ -1,0 +1,5 @@
+interface:
+  display_name: "Sync Skills"
+  short_description: "Publish local skill changes upstream as a PR"
+  default_prompt: "Use $sync-skills to push locally edited or new skills back to the shared skills repo."
+allow_implicit_invocation: false
