@@ -1,0 +1,5 @@
+interface:
+  display_name: "Audit Codebase"
+  short_description: "Audit the codebase against installed coding skills, read-only"
+  default_prompt: "Use $audit-codebase to check this codebase against the installed coding skills and report violations without editing files."
+allow_implicit_invocation: false
