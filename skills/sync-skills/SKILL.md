@@ -1,10 +1,10 @@
 ---
-name: skills-sync
+name: sync-skills
 description: Publish locally modified or newly created skills from a consuming project back to the shared skills repo as a pull request.
 disable-model-invocation: true
 ---
 
-# Skills Sync
+# Sync Skills
 
 Skills are installed into projects as detached copies (via the `skills` CLI), so
 improvements made while working in a project never reach the shared repo on their own.
@@ -68,7 +68,7 @@ Done when: the user has approved the diff.
 ## 5. Branch, commit, PR
 
 ```bash
-git checkout -b skills-sync/<project-name>-<yyyy-mm-dd>
+git checkout -b sync-skills/<project-name>-<yyyy-mm-dd>
 git add skills/<name>
 git commit -m "feat(<name>): <what changed>"
 git push -u origin HEAD

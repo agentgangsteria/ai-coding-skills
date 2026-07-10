@@ -10,8 +10,13 @@ agent taking the same process every run — not for clever prose.
 
 ## Frontmatter
 
-The folder name must equal `name`; the description must include concrete "Use when …" triggers;
-invocation type is controlled by `disable-model-invocation`:
+The folder name must equal `name`; a model-invoked description must include concrete
+"Use when …" triggers, while a user-invoked one is a plain one-line summary (only the user
+reads it); invocation type is controlled by `disable-model-invocation`:
+
+- **Name grammar signals invocation.** Model-invoked skills are domain-first noun phrases
+  (`code-style`, `unit-test`); user-invoked skills are verb-first imperatives
+  (`sync-skills`, `audit-codebase`) — they read as commands because the user fires them.
 
 ```markdown
 ---
