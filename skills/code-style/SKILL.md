@@ -29,8 +29,31 @@ if (event.type === "delta") {
 ```
 
 Ternary expressions and JSX conditional rendering (`cond ? a : b`,
-`cond && <El />`) are expressions, not statement blocks — they are fine and not
-covered by this rule.
+`cond && <El />`) are expressions, so this brace rule does not apply.
+
+## Conditional expressions
+
+Keep ternaries to one condition; use a named function with early returns for
+compound or nested decisions.
+
+```ts
+// Wrong
+const className = locked && (head || body) ? " animate" : "";
+
+// Right
+function getClassName(locked: boolean, intent: "head" | "body" | "other") {
+  if (!locked) {
+    return "";
+  }
+  if (intent === "head") {
+    return " animate";
+  }
+  if (intent === "body") {
+    return " animate";
+  }
+  return "";
+}
+```
 
 ## Verify
 
