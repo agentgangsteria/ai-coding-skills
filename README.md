@@ -79,12 +79,6 @@ mkdir -p .claude/commands
 cp <path-to-this-repo>/skills/<name>/commands/<name>.md .claude/commands/<name>.md
 ```
 
-> **Migration note:** `sync-skills` was previously named `skills-sync`. `npx skills update`
-> does not follow renames, so in projects that installed the old name, delete the stale
-> copies (`.claude/skills/skills-sync/`, `.agents/skills/skills-sync/`, and any copied
-> `.claude/commands/skills-sync.md`), then run
-> `npx skills add agentgangsteria/ai-coding-skills --skill sync-skills`.
-
 ## Contributing a skill
 
 Add a new folder under `skills/<your-skill>/` containing a `SKILL.md` with `name` and

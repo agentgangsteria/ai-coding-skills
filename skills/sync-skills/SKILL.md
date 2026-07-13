@@ -48,40 +48,58 @@ Done when: every folder under `.agents/skills/` is classified unchanged / modifi
 ## 3. Confirm scope and intent
 
 Show the user the modified and new skills with a one-line summary of each diff, and let
-them pick which to push. If a modified skill's diff contains changes the user did not make
+them pick which to push — each pick becomes its own branch and PR. If a modified skill's diff contains changes the user did not make
 locally (upstream moved on since install), stop for that skill and present the conflicting
 hunks — merge deliberately, never overwrite. Capture the **why** behind each change if the
 session doesn't already make it obvious; it belongs in the PR body.
 
 Done when: the user has picked the skills to push and each pick has a captured why.
 
-## 4. Copy and review
+## 4. Branch, copy, commit — one branch per skill
 
-Copy each selected skill folder wholesale — `SKILL.md`, `agents/openai.yaml`, and any
-sibling files — over `skills/<name>/` in the checkout. New skills must satisfy the repo's
-contribution rules (folder name equals frontmatter `name`, agent-neutral description; see
-the `skill-craft` skill). Show the resulting `git diff` (plus `git status` for new files)
-to the user before committing.
-
-Done when: the user has approved the diff.
-
-## 5. Branch, commit, PR
+Each skill rides its own branch so its PR can merge or be debated independently. Write
+the commit subject first — `<type>(<name>): <what changed>`, where `<type>` is `feat`
+for a new skill or new behaviour, `fix` for correcting wrong guidance, `refactor` for
+tightening or restructuring — and slugify its `<what changed>` for the branch name, so
+one summary serves as branch, commit, and PR title. Then, for each selected skill:
 
 ```bash
-git checkout -b sync-skills/<project-name>-<yyyy-mm-dd>
-git add skills/<name>
-git commit -m "feat(<name>): <what changed>"
-git push -u origin HEAD
-gh pr create --title "<summary>" --body "<see below>"
+git checkout <default-branch>
+git checkout -b sync/<name>--<slug>      # refactor(unit-test): tighten assertion guidance → sync/unit-test--tighten-assertion-guidance
 ```
 
-PR body: the source project, what changed per skill, and why. When adding a new skill,
-also update the **Available skills** table in `README.md` in the same PR.
+Copy the skill folder wholesale — `SKILL.md`, `agents/openai.yaml`, and any sibling
+files — over `skills/<name>/` in the checkout. New skills must satisfy the repo's
+contribution rules (folder name equals frontmatter `name`, agent-neutral description; see
+the `skill-craft` skill) and add their row to the **Available skills** table in
+`README.md` on the same branch. Show the resulting `git diff` (plus `git status` for new
+files) to the user, then commit:
 
-After reporting the PR URL, remove the temp clone (`rm -rf <tmp-dir>`) — if review
+```bash
+git add skills/<name>            # plus README.md for a new skill
+git commit -m "<type>(<name>): <what changed>"
+```
+
+Done when: every selected skill is one approved commit on its own branch.
+
+## 5. Push and PR — one per branch
+
+For each branch:
+
+```bash
+git checkout sync/<name>--<slug>
+git push -u origin HEAD
+gh pr create --title "<commit subject>" --body "<see below>"
+```
+
+PR body: the source project, what changed, and why. When several *new* skills go up at
+once, their PRs edit adjacent rows of the README table — expect to rebase the later
+ones after the first merges.
+
+After reporting every PR URL, remove the temp clone (`rm -rf <tmp-dir>`) — if review
 feedback needs follow-up commits, re-clone and check out the PR branch.
 
-Done when: the PR URL is reported to the user and the temp clone is removed.
+Done when: every branch has its PR URL reported to the user and the temp clone is removed.
 
 ## 6. Close the loop
 
