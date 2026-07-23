@@ -1,0 +1,4 @@
+interface:
+  display_name: "Commit Conventions"
+  short_description: "Commit message + branch-name conventions with a propose-then-approve gate."
+  default_prompt: "Use $commit-conventions when creating a commit or naming a branch."
