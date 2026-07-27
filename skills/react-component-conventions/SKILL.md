@@ -1,15 +1,9 @@
 ---
 name: react-component-conventions
-description: React and TypeScript conventions for .tsx components. Use when creating or extracting a component into its own module, adding typed props, updating component imports/exports, or deciding single-file vs same-named-folder structure.
+description: React and TypeScript conventions for .tsx components. Use when creating or extracting a component, splitting one into a stateful and a presentational pair, moving state and effects into a hook, typing props for content the page renders, or choosing a component's file and folder layout.
 ---
 
 # React Component Conventions
-
-## Workflow
-
-Before editing, inspect nearby components and preserve the current project's import paths, file placement, barrel exports, and formatter style.
-
-Keep edits scoped to the component work and avoid unrelated formatting or import churn.
 
 ## Component Shape
 
@@ -51,7 +45,24 @@ const runStream = async (agent: Agent) => {
 };
 ```
 
-Keep logic that does not read or set React state out of the component entirely — move it to the component's `ComponentNameService.ts` (see Extraction Rules) so it stays a pure, unit-testable function.
+## Container Logic
+
+The container is the stateful half of a split — a role, not a filename. `*Container` as a suffix is the last rung of [`naming-a-split.md`](naming-a-split.md), reached only when nothing else names the pair.
+
+Keep logic that does not read or set React state out of both the component and its hook — move it to the component's `ComponentNameService.ts` (see Extraction Rules) so it stays a pure, unit-testable function.
+
+Extract the remaining React logic into a `useComponentName` hook when the container holds an effect, or more than one piece of state or ref. A lone `useState` passed straight down stays inline.
+
+Read [`extracting-a-hook.md`](extracting-a-hook.md) before writing the hook — it decides the decomposition, the file names, and what the hook returns.
+
+## Content-Driven UI
+
+Read [`content-driven-ui.md`](content-driven-ui.md) before either of these:
+
+- writing the props interface of a component that renders page content — nav items, tabs, filters, anchor links, or page copy
+- laying out a content-heavy page component
+
+It decides whether that content is imported or passed in. Guessing bakes a module import into a client component that then cannot be driven from props.
 
 ## Extraction Rules
 
@@ -59,24 +70,18 @@ Put each meaningful component in its own `.tsx` module when it has independent r
 
 Name the file after the component, for example `ChevronIcon.tsx` for `ChevronIcon`.
 
+Splitting a component into a stateful wrapper and a pure one? Both names come from [`naming-a-split.md`](naming-a-split.md) — read it before writing either filename.
+
 Move only component-specific markup, props, constants, and helper types into the new module. Leave caller state, effects, data arrays, and behavior in the caller unless they truly belong to the extracted component.
 
 Use a named export for the component. Update the caller to import from the new local module. Update an `index.ts` barrel only when the folder already uses one and the component should be part of that folder's public surface.
 
 Preserve client/server boundaries. Add `"use client";` to the extracted component only if it uses hooks, browser APIs, event handlers that require a client component boundary, or project conventions require it. Do not add it to pure presentational components by default.
 
-When a component is a single standalone component, keep it as `ComponentName.tsx` in the parent feature folder. Do not create a same-named folder solely for a component that has no local private subcomponents, services, or folder-level public surface.
+When a component is a single standalone component, keep it as `ComponentName.tsx` in the parent feature folder. Do not create a same-named folder solely for a component that has no local private subcomponents, hooks, services, or folder-level public surface.
 
-When creating or growing a component into a small local component cluster, place it in a same-named folder with a primary `ComponentName.tsx`, colocated subcomponents or services, and an `index.ts` barrel that preserves the public import path.
+When creating or growing a component into a small local component cluster, place it in a same-named folder with a primary `ComponentName.tsx`, colocated subcomponents, hooks, or services, and an `index.ts` barrel that preserves the public import path.
 
 If a component owns an inner component that is only used by that component family, keep that local component inside the parent component's folder rather than promoting it to a broader component directory. Check actual call sites before deciding reuse; a barrel export or public-looking filename does not by itself mean the component is reused.
 
 Use `ComponentNameService.ts` for component-local data, helpers, or service-like contracts that support one component family. Avoid vague filenames such as `items.ts` when the module is effectively the component's local service boundary.
-
-## Content-Driven UI
-
-Building a content-heavy page, or wiring navigation/tabs/filters that mirror structured content? Follow [`content-driven-ui.md`](content-driven-ui.md).
-
-## Verification
-
-Run the narrowest relevant formatter, lint, type-check, or test command available. If verification fails because of pre-existing project issues or environment problems, report the blocker clearly and separate it from the change just made.
