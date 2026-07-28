@@ -1,5 +1,7 @@
 # Naming a Split Component
 
+Run this only once the split is earned — `SKILL.md` gates it on a named file that renders the pure half. Naming an unearned pair is how a pass-through acquires a real-looking name and survives review.
+
 When a component splits into a stateful wrapper and a pure one, the pure component takes the most specific accurate name available and the wrapper takes what is left.
 
 Never put a role suffix on the pure component — `*View`, `*Presentational`, `*UI`, `*Markup`. The pair already shows which half holds the state, so the suffix spends a word repeating the file layout, and it collides the moment one wrapper renders two pure components.

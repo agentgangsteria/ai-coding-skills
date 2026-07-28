@@ -53,9 +53,11 @@ return {
 
 `scrollBy` reads correctly in a file about scrolling; `onScroll` reads correctly in a file about a bar. Neither reads correctly in the other.
 
-## Keep the container
+## Don't leave a pass-through
 
-After extraction the container is close to `<CatalogNavigationBar {...useCatalogNavigation(navItems, pdfHref)} />`. Keep it. It holds `"use client"` and keeps the hook import out of the presentational component, so that component stays trivially renderable in isolation — a story, a test, a second caller. Deleting the container, or folding the hook back into it, gives that up.
+After extraction the wrapper is close to `<CatalogNavigationBar {...useCatalogNavigation(navItems, pdfHref)} />` — a body that only spreads the hook's return. Keep it only when the gate in `SKILL.md` is answered: a named file already renders the pure half without the hook. `CatalogNavigationBar` has a story, so that pair stands.
+
+With no such file, fold the hook into the component that owns the markup. The hook already separated the stateful logic; dividing again is an arbitrary division.
 
 ## Coverage
 

@@ -45,15 +45,19 @@ const runStream = async (agent: Agent) => {
 };
 ```
 
-## Container Logic
-
-The container is the stateful half of a split — a role, not a filename. `*Container` as a suffix is the last rung of [`naming-a-split.md`](naming-a-split.md), reached only when nothing else names the pair.
+## Stateful Logic
 
 Keep logic that does not read or set React state out of both the component and its hook — move it to the component's `ComponentNameService.ts` (see Extraction Rules) so it stays a pure, unit-testable function.
 
-Extract the remaining React logic into a `useComponentName` hook when the container holds an effect, or more than one piece of state or ref. A lone `useState` passed straight down stays inline.
+Extract the remaining React logic into a `useComponentName` hook when the component holds an effect, or more than one piece of state or ref. A lone `useState` passed straight down stays inline.
 
 Read [`extracting-a-hook.md`](extracting-a-hook.md) before writing the hook — it decides the decomposition, the file names, and what the hook returns.
+
+**The hook is the separation.** Once the stateful logic lives in a hook, splitting further into a stateful wrapper and a pure twin buys nothing by itself — it is an arbitrary division, and what it leaves behind is a **pass-through**: a component whose whole body is one element spreading the hook's return.
+
+Split only when you can **name the file that renders the pure half without the hook** — an existing story, test, or second call site. Not one you plan to write. Otherwise call the hook in the component that owns the markup, and give that component the `"use client"`.
+
+The gate is about the twin, not about children. A component rendering one *part* of the markup is ordinary composition — see Extraction Rules — and needs no second renderer.
 
 ## Content-Driven UI
 
