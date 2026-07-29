@@ -32,17 +32,33 @@ Done when: the user has confirmed the mapping.
 
 ## 3. Audit read-only
 
-For each confirmed skill, load its full `SKILL.md` plus any linked reference files, and
-check every in-scope file against its rules. This step is inspection only — modify no
-file. Record findings as a numbered list: `file:line`, owning skill, rule violated,
-one-line description.
+Run one **sweep** per confirmed skill: a sweep loads that skill's full `SKILL.md` plus
+its linked reference files, checks the in-scope files assigned to it, and returns
+findings. Give each sweep its own context, so it holds one skill's rules at a time and
+can't be steered by another sweep's findings — run sweeps concurrently where the agent
+supports it, sequentially otherwise. Split a skill whose file list is too large into
+several sweeps.
 
-Done when: every file in scope has been checked against every confirmed skill.
+A sweep brief is self-contained — the sweep can see nothing you have gathered so far —
+and reads:
+
+> Load `<skill path>/SKILL.md` and every reference file it links. Check these files
+> against its rules: `<paths>`. Inspect only — modify no file. Return one line per
+> violation, `file:line | skill | rule | one-line description`, and nothing else: no
+> summary, no commentary, no fixes. Return `none` if the files are clean.
+
+Collect the returned findings into a single numbered list.
+
+Done when: for every confirmed skill, every file assigned to it is covered by a sweep
+that returned. A sweep that failed, or came back with nothing at all rather than an
+explicit `none`, is re-run or recorded as an uncovered gap in the report — never
+counted as clean.
 
 ## 4. Report
 
 Present the findings grouped by skill, with per-skill counts and a total, and state that
-nothing was modified. A finding the user won't act on is still worth reporting — the
+nothing was modified. List any uncovered gaps separately, so unchecked files are never
+read as clean ones. A finding the user won't act on is still worth reporting — the
 report is the deliverable; fixes are optional.
 
 Done when: the report is delivered.
