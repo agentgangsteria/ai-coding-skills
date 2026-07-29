@@ -5,6 +5,9 @@ description: React and TypeScript conventions for .tsx components. Use when crea
 
 # React Component Conventions
 
+**Building a new component? Decide its story before its route.** Whether it earns one, and the
+loop for building at the story, both belong to the `storybook` skill.
+
 ## Component Shape
 
 Use `FC` for React function components:
