@@ -1,0 +1,4 @@
+interface:
+  display_name: "Storybook"
+  short_description: "Write stories and verify them with axe and pixel baselines"
+  default_prompt: "Use $storybook when writing stories or adding a visual baseline."

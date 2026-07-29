@@ -15,6 +15,9 @@ skills/<skill-name>/
 README.md               # catalog index
 ```
 
+Only `skills/<skill-name>/**` is installed into consuming projects, so a term a skill leans
+on must be grounded in the skill's own files — nothing else in this repo travels with it.
+
 ## Working in this repo
 
 - **Authoring or editing a skill?** Follow the `skill-craft` skill — it covers
