@@ -1,49 +1,59 @@
 ---
 name: commit-conventions
-description: Git commit and branch-name conventions — `<type>` subject messages and `<type>/<slug>` branches, no ticket numbers, no co-author trailer, feature-branch-only, append-only history, behind a propose-then-approve gate that fires before every branch and every commit. Use when creating a commit, writing a commit message, naming a branch, or amending, rebasing, resetting, or force-pushing.
+description: Git commit and branch-name conventions — `<type>` subject messages and `<type>/<slug>` branches, no ticket numbers, no co-author trailer, feature-branch-only, append-only history, behind a propose-then-approve gate that reads the finished diff before every branch and every commit. Use when creating a commit, writing a commit message, naming a branch, or amending, rebasing, resetting, or force-pushing.
 ---
 
 # Commit Conventions
 
-Three guards run before any commit lands: work never lands on the trunk directly, every
-branch name and every commit message is proposed for approval before it exists, and history
-is append-only. Everything else is the message format.
+Three guards run before any commit lands: no commit goes onto the trunk directly, every
+branch name and every commit message is read off the finished diff and proposed for approval
+before it exists, and history is append-only. Everything else is the message format.
 
 If the repo's history already uses a different type vocabulary or branch scheme, match it
 over the defaults below.
 
-## 1. Guard the trunk
+## 1. Do the work, spare the trunk
 
-Check the current branch first. Never commit to `master`/`main`.
+Only the **commit** is forbidden on `master`/`main` — editing its checkout is not. Build the
+change there and leave it uncommitted: `git switch -c` carries uncommitted work onto the new
+branch, so the branch can be born after the implementation, named for what the diff turned
+out to be rather than for what it was going to be.
 
-- On `master`/`main` → the work needs a `<type>/<slug>` branch, but do not create it here:
-  the name goes through the gate in step 2 first. Switching to a branch that already exists
-  is free.
-- A commit already landed on the local trunk → move it onto a feature branch, then reset
-  the trunk back to its remote (`git reset --hard @{u}`) before pushing anything.
+So do not stop to name a branch before writing code. Switching to a branch that *already*
+exists is free and needs no gate — do that at any time.
 
-Done when: you know whether a branch is needed, and the trunk is untouched.
+A commit already landed on the local trunk → move it onto a feature branch, then reset the
+trunk back to its remote (`git reset --hard @{u}`) before pushing anything.
 
-## 2. Propose, then wait — the gate
+Done when: the implementation is finished and the trunk carries no new commit.
 
-The gate fires **before every commit**, not once per branch. A branch that already exists
-with commits on it retires nothing: the second, fifth and tenth commit each go through the
-gate exactly like the first. Approval covers one commit and expires with it.
+## 2. Propose from the diff — the gate
 
-It also fires before a branch is born, whether or not a commit follows immediately — "start
-on X, make a branch" goes through the gate with nothing but the name.
+The gate runs on a **diff**. No diff, no proposal — a branch name and a subject invented from
+a plan describe work that does not exist yet and land wrong. Read what actually changed
+(`git status`, `git diff`) first, then propose.
 
-Show the maintainer whichever applies:
+Show the maintainer, in one stop:
 
 - the **branch name** — `<type>/<slug>` — when the branch does not exist yet
-- the **commit subject**, plus a short outline of the body, when a commit is next
+- the **commit subject**, plus a short outline of the body, for every commit the diff splits
+  into
 
 Then stop. `git switch -c`, `git checkout -b` and `git commit` all wait until they answer.
 
-Done when: the maintainer has approved (or adjusted) the branch name, the message for *this*
-commit, or both — whichever you are about to create.
+Approval covers this diff and expires with it. A branch that already has commits retires
+nothing: later work is a new diff and runs the gate again, so the second, fifth and tenth
+commit each get proposed exactly like the first.
+
+The one gate with no diff behind it is a branch the maintainer asked for outright — "make a
+branch for X" — which goes through on the name alone.
+
+Done when: the maintainer has approved (or adjusted) the branch name, the message for every
+commit about to be created, or both.
 
 ## 3. Write the commit — append only
+
+Create the approved branch now if it does not exist, then commit onto it.
 
 Every approved message becomes a **new commit**. History is append-only, so a mistake in an
 earlier commit is fixed by a follow-up commit, never by rewriting the commit that carries it:
@@ -61,8 +71,8 @@ Subject `<type>: <what changed>` in imperative present tense, concise. Then a bl
 a body that explains the **what and the why**, wrapped at ~72 columns, one bullet per
 distinct change.
 
-Done when: a new commit sits on top of the branch, no pre-existing commit's hash changed, and
-the message passes every rule below.
+Done when: every approved commit sits on the branch, no pre-existing commit's hash changed,
+and each message passes every rule below.
 
 ## Reference
 
