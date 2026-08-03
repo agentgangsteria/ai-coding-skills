@@ -26,16 +26,16 @@ These skills are installed and kept up to date with the
 
 ```bash
 # Install all skills (auto-detects Claude Code / Codex / Cursor in the project)
-npx skills add agentgangsteria/ai-coding-skills
+npx skills add gangsteria/ai-coding-skills
 
 # Install into specific agents only
-npx skills add agentgangsteria/ai-coding-skills -a claude-code -a codex
+npx skills add gangsteria/ai-coding-skills -a claude-code -a codex
 
 # Install a single skill
-npx skills add agentgangsteria/ai-coding-skills --skill unit-test
+npx skills add gangsteria/ai-coding-skills --skill unit-test
 
 # Install a single skill non-interactively (e.g. from a script or agent)
-npx skills add agentgangsteria/ai-coding-skills --skill sync-skills --yes
+npx skills add gangsteria/ai-coding-skills --skill sync-skills --yes
 ```
 
 Skills land in the selected agents' directories, such as `.claude/skills/` for Claude Code and `.agents/skills/` for Codex.
