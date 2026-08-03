@@ -16,7 +16,7 @@ projects diverge the same skill.
 
 A PR needs a git checkout to diff, branch, and commit from; the project holds no git link
 to the skills repo. Find the source repo in the project's `skills-lock.json`
-(`source`, e.g. `agentgangsteria/ai-coding-skills`) and clone it shallowly into a fresh
+(`source`, e.g. `gangsteria/ai-coding-skills`) and clone it shallowly into a fresh
 directory under the system temp dir:
 
 ```bash
