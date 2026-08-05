@@ -62,6 +62,11 @@ A skill is **steps** (ordered actions) and **reference** (rules and facts), in a
   conventions (import paths, formatter, file placement, test-script names) before applying
   defaults — skills land in unknown codebases.
 - **Scope edits narrowly.** Avoid unrelated churn (reformatting, import reshuffles).
+- **Cross-reference declaratively.** Skills install one at a time and nothing resolves
+  dependencies, so a skill you name may be absent. Mark the boundary ("service modules
+  belong to `unit-test`") instead of issuing an imperative ("follow `unit-test`"): a
+  boundary stays true when the other skill is missing, while an instruction the agent
+  can't satisfy gets dropped — or improvised into rules that skill never gave.
 - **End with verification.** Close with how to check the result using the narrowest relevant
   command in the host project (lint / type-check / test), and to report blockers separately.
 
