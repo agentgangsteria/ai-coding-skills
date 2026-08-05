@@ -55,10 +55,6 @@ function getClassName(locked: boolean, intent: "head" | "body" | "other") {
 }
 ```
 
-## Comments
-
-Comments belong to `comment-conventions` — it decides which survive.
-
 ## Verify
 
 Run the project's narrowest lint command after edits. Report pre-existing
