@@ -1,0 +1,4 @@
+interface:
+  display_name: "Comment Conventions"
+  short_description: "What a comment is allowed to say: describe the present, name the category, and delete everything the code already shows."
+  default_prompt: "Use $comment-conventions when writing a comment, reviewing one, or deciding whether an existing comment stays."

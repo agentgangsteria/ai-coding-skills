@@ -55,13 +55,6 @@ function getClassName(locked: boolean, intent: "head" | "body" | "other") {
 }
 ```
 
-## Comments
-
-Comment the **why**, never the **what**.
-
-Read [`writing-a-comment.md`](writing-a-comment.md) before writing a comment, or
-when deciding whether an existing one stays — it decides which survive.
-
 ## Verify
 
 Run the project's narrowest lint command after edits. Report pre-existing
